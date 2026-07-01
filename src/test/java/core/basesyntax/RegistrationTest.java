@@ -1,14 +1,14 @@
 package core.basesyntax;
 
-import core.Exception.RegistrationException;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import core.basesyntax.dao.StorageDao;
 import core.basesyntax.dao.StorageDaoImpl;
 import core.basesyntax.model.User;
 import core.basesyntax.service.RegistrationServiceImpl;
+import core.exception.RegistrationException;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RegistrationTest {
 
@@ -54,7 +54,7 @@ public class RegistrationTest {
         testUser.setLogin("ExistingUser");
         testUser.setPassword("123456");
         testUser.setAge(20);
-        service.register(testUser); 
+        service.register(testUser);
 
         User duplicate = new User();
         duplicate.setLogin("ExistingUser");

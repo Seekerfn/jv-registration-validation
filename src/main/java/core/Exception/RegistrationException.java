@@ -1,4 +1,4 @@
-package core.Exception;
+package core.exception;
 
 public class RegistrationException extends RuntimeException {
 
