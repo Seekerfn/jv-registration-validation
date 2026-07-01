@@ -14,16 +14,16 @@ import org.junit.jupiter.api.Test;
 
 public class RegistrationTest {
 
-    private User testUser;
-    private StorageDao storage = new StorageDaoImpl();
-
+    private StorageDao storage;
     private RegistrationServiceImpl service;
+    private User testUser;
 
     @BeforeEach
     void setUp() {
         Storage.people.clear();
-        testUser = new User();
+        storage = new StorageDaoImpl();
         service = new RegistrationServiceImpl();
+        testUser = new User();
     }
 
     @Test
@@ -72,6 +72,36 @@ public class RegistrationTest {
         duplicate.setAge(25);
 
         assertThrows(RegistrationException.class, () -> service.register(duplicate));
+    }
+
+    @Test
+    void register_nullLogin_notOk() {
+        testUser.setLogin(null);
+        testUser.setPassword("123456");
+        testUser.setAge(20);
+
+        assertThrows(RegistrationException.class,
+                () -> service.register(testUser));
+    }
+
+    @Test
+    void register_nullPassword_notOk() {
+        testUser.setLogin("ValidLogin");
+        testUser.setPassword(null);
+        testUser.setAge(20);
+
+        assertThrows(RegistrationException.class,
+                () -> service.register(testUser));
+    }
+
+    @Test
+    void register_nullAge_notOk() {
+        testUser.setLogin("ValidLogin");
+        testUser.setPassword("123456");
+        testUser.setAge(null);
+
+        assertThrows(RegistrationException.class,
+                () -> service.register(testUser));
     }
 
 }

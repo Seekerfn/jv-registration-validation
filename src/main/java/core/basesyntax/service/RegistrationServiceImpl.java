@@ -34,10 +34,18 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user.getPassword().length() < MIN_PASSWORD_LENGTH) {
             throw new RegistrationException("Password length must contain atleast 6 characters!");
         }
+        if (user.getAge() == null) {
+            throw new RegistrationException("Age can't be null");
+        }
+
+        if (user.getAge() < 0) {
+            throw new RegistrationException("Age can't be negative");
+        }
         if (user.getAge() < MIN_AGE) {
             throw new RegistrationException("User's age must be atleast 18 years old");
 
         }
+
         return storageDao.add(user);
     }
 }
